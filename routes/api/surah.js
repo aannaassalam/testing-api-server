@@ -99,4 +99,21 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// get All surahs by language
+router.get("/list/:id", async (req, res) => {
+  try {
+    const surahs = await (
+      await Surah.find({ language: req.params.id })
+    ).filter((surah) => surah.isActive === true);
+
+    res.json(surahs);
+  } catch (err) {
+    if (err) {
+      return res.status(400).json({
+        error: "Your request could not be processed. Please try again.",
+      });
+    }
+  }
+});
+
 module.exports = router;
