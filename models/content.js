@@ -7,6 +7,7 @@ const ContentSchema = new Schema({
     type: Schema.ObjectId,
     auto: true,
   },
+
   title:{
     type: String
   },
@@ -17,11 +18,6 @@ const ContentSchema = new Schema({
   cloudinary_id: {
     type: String,
   },
-
-  video: {
-    type: String,
-  },
-
   content: {
     type: String,
     required: true,

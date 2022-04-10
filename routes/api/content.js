@@ -9,7 +9,7 @@ const upload = require("../../utils/multer");
 router.get("/", async (req, res) => {
   try {
     const content = await (
-      await Content.find()
+      await Content.find().sort({"created": -1}) 
     ).filter((content) => content.isActive === true);
 
     res.json(content);
@@ -32,7 +32,6 @@ router.post("/", upload.single("image"), async (req, res) => {
       title: req.body.title,
       contentImg: result.secure_url,
       cloudinary_id: result.public_id,
-      video: req.body.video,
       content: req.body.content,
     });
 
@@ -74,7 +73,6 @@ router.put("/:id", upload.single("image"), async (req, res) => {
       title: req.body.title || c1.title,
       contentImg: result?.secure_url || c1.avatar,
       cloudinary_id: result?.public_id || c1.cloudinary_id,
-      video: req.body.video || c1.video,
       content: req.body.content || c1.content,
     };
     c1 = await Content.findByIdAndUpdate(req.params.id, data, { new: true });
@@ -97,6 +95,5 @@ router.get("/:id", async (req, res) => {
     }
   }
 });
-
 
 module.exports = router;
