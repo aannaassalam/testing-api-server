@@ -8,7 +8,7 @@ const upload = require("../../utils/multer");
 router.get("/", async (req, res) => {
   try {
     const content = await (
-      await Content.find()
+      await Content.find().sort({"created": -1}) 
     ).filter((content) => content.isActive === true);
 
     res.json(content);
