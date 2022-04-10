@@ -1,3 +1,4 @@
+const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 const Content = require("../../models/content");
@@ -28,6 +29,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     const result = await cloudinary.uploader.upload(req.file.path);
 
     let content = new Content({
+      title: req.body.title,
       contentImg: result.secure_url,
       cloudinary_id: result.public_id,
       video: req.body.video,
@@ -69,6 +71,7 @@ router.put("/:id", upload.single("image"), async (req, res) => {
       result = await cloudinary.uploader.upload(req.file.path);
     }
     const data = {
+      title: req.body.title || c1.title,
       contentImg: result?.secure_url || c1.avatar,
       cloudinary_id: result?.public_id || c1.cloudinary_id,
       video: req.body.video || c1.video,

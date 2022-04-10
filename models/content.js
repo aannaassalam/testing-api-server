@@ -7,6 +7,9 @@ const ContentSchema = new Schema({
     type: Schema.ObjectId,
     auto: true,
   },
+  title:{
+    type: String
+  },
   contentImg: {
     type: String,
   },
