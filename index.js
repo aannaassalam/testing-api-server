@@ -5,7 +5,8 @@ const { port } = require("./config/key");
 const routes = require("./routes");
 const cors = require("cors");
 
-const url = "mongodb://localhost/rizvi-talukaaat-be-iam";
+const url =
+  "mongodb+srv://admin:anasalam786@my-project.96wsl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
