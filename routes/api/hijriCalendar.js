@@ -1,15 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const RamzanTimeTable = require("../../models/ramzanTimeTable");
+const HijriCalendar = require("../../models/hijriCalendar");
 
 // get All ramzan Timee Table
 router.get("/", async (req, res) => {
   try {
-    const ramzanTimeTable = await (
-      await RamzanTimeTable.find()
-    ).filter((ramzanTimeTable) => ramzanTimeTable.isActive === true);
+    const hijriCalendar = await HijriCalendar.find();
 
-    res.json(ramzanTimeTable);
+    res.json(hijriCalendar);
   } catch (err) {
     if (err) {
       return res.status(400).json({
@@ -21,13 +19,13 @@ router.get("/", async (req, res) => {
 
 // Add RamzanTimeTable
 router.post("/", async (req, res) => {
-  const ramzanTimeTable = new RamzanTimeTable(Object.assign(req.body));
+  const hijriCalendar = new HijriCalendar({ days: req.body });
 
   try {
-    const r1 = await ramzanTimeTable.save();
+    const r1 = await hijriCalendar.save();
     res.status(200).json({
       success: true,
-      message: `RamzanTimeTable has been added successfully!`,
+      message: `New Month added to Hijri Calendar successfully!`,
       ramzanTimeTable: r1,
     });
   } catch (err) {
