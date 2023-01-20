@@ -31,8 +31,8 @@ app.post("/api/server", (req, res) => {
       data: req.body,
     },
   ])
-    .then((res) => {
-      console.log(res);
+    .then((res2) => {
+      console.log(res2);
       res.send("Success");
     })
     .catch((err) => {
