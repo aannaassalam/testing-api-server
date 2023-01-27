@@ -14,14 +14,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-mongoose
-  .connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected!"))
-  .catch((err) => console.log(err));
-
 // app.use(routes);
 app.get("/", (req, res) => res.send("Working"));
 
@@ -41,6 +33,17 @@ app.post("/api/server", (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || port, () => {
-  console.log(`Server listening on ${port}`);
-});
+const PORT = process.env.PORT || port;
+
+mongoose
+  .connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected!");
+    app.listen(PORT, () => {
+      console.log(`Server listening on ${PORT}`);
+    });
+  })
+  .catch((err) => console.log(err));
